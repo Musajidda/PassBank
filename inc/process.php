@@ -216,8 +216,9 @@ if(isset($_POST["new_question"])) {
             // Example database insertion based on file type
             $file_path = $upload_file;
 
-            $sql = "INSERT INTO questions(course_title, course_code, session, course_id, file_path) 
-                    VALUES('$course_title', '$course_code', '$session', '$course_id', '$file_path')";
+            $sql = "INSERT INTO questions(course_title, course_code, session, course_id, image) 
+        VALUES('$course_title', '$course_code', '$session', '$course_id', '$file_path')";
+
             $query = mysqli_query($connection, $sql);
 
             if ($query) {
