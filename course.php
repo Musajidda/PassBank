@@ -45,8 +45,8 @@ if($_SESSION["user"]["role"] == "user"){
          </div>
          <div class="col-9">
              <div class="container">
-                 <h6>All Courses</h6>
-                 <a href="javascript:;" class="btn text-light border" style="background-color:darkgreen;" data-bs-toggle="modal" data-bs-target="#exampleModal">New Course</a>
+                 <h6>All Department</h6>
+                 <a href="javascript:;" class="btn text-light border" style="background-color:darkgreen;" data-bs-toggle="modal" data-bs-target="#exampleModal">New Department</a>
                 <?php 
                     if(isset($error)) {
                     ?>
