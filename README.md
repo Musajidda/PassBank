@@ -29,7 +29,7 @@ Frontend: HTML, CSS, JavaScript
 Backend: PHP 
 
 Database: MySQL 
-AI Chatbot: OpenAI GPT, Dialogflow, or Botpress
+AI Chatbot: Dialogflow
 
 File Storage: Local server or Cloud (AWS S3, Firebase, etc.)
 
