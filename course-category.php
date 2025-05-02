@@ -1,3 +1,15 @@
+
+<style>
+  df-messenger {
+    --df-messenger-bot-message: #e0e0e0;
+    --df-messenger-button-titlebar-color: green;
+    --df-messenger-chat-background-color: white;
+    --df-messenger-font-color: black;
+    --df-messenger-send-icon: #ffffff;
+    bottom: 80px;
+    right: 20px;
+  }
+</style>
 <?php
 session_start();
 
@@ -7,26 +19,63 @@ if(!isset($_SESSION["user"])){
 }
  require "inc/process.php";
  require "inc/header.php";
-
- if(isset($_GET["course_category_id"]) && !empty($_GET["course_category_id"])){
-   $id = $_GET["course_category_id"];
- }else{
-   header("location: all-questions.php");   
- }
- 
- ?>
+ if (isset($_GET["search"]) && !empty($_GET["search"])) {
+  // search logic will handle it later
+} elseif (isset($_GET["course_category_id"]) && !empty($_GET["course_category_id"])) {
+  $id = $_GET["course_category_id"];
+} else {
+  header("location: all-questions.php");   
+  exit();
+}
+?>
 
 <div class="container">
 <?php require './pages/header-home.php'; ?>
- <div class="container-fluid my-3">
+ <div clas="container-fluid my-3">
     <div class="row justify-content-center">
       <div class="col-8">
         </div>
+
+        <form method="GET" action="" class="mb-4">
+    <input type="text" name="search" class="form-control" placeholder="Search course title or code..." required>
+    <button type="submit" class="btn btn-success mt-2">Search</button>
+
+    <!-- Dialogflow Messenger Chatbot -->
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="AskBot"
+  agent-id="asmaa"
+  language-code="en">
+</df-messenger>
+
+</form>
+
         <div class="col-8">
             <div class="row">
               <?php
-              $sql = "SELECT * FROM questions WHERE course_id ='$id' ORDER BY id DESC";
+             
+
+              $questions = [];
+
+if (isset($_GET["search"]) && !empty($_GET["search"])) {
+    $search = mysqli_real_escape_string($connection, $_GET["search"]);
+    $sql = "SELECT * FROM questions WHERE course_title LIKE '%$search%' OR course_code LIKE '%$search%' ORDER BY id DESC";
+    $query = mysqli_query($connection, $sql);
+} elseif (isset($_GET["course_category_id"]) && !empty($_GET["course_category_id"])) {
+    $id = $_GET["course_category_id"];
+    $sql = "SELECT * FROM questions WHERE course_id = '$id' ORDER BY id DESC";
+    $query = mysqli_query($connection, $sql);
+} else {
+    header("location: all-questions.php");
+    exit();
+}
+
               $query = mysqli_query($connection,$sql);
+              if (mysqli_num_rows($query) === 0) {
+                echo "<p>No questions found for your search.</p>";
+            }
+            
                while($result = mysqli_fetch_assoc($query)) { 
                 //Looping through the col for multiples product
                 ?>

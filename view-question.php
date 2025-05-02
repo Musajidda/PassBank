@@ -66,17 +66,33 @@ function getCourseById($conn, $id)
 
                 <div class="row">
                     <div class="col-10 text-center">
-                        <?php if (!empty($question['file_path'])): ?>
-                        <img style="width:500px; height:500px;" src="<?= htmlspecialchars($question['file_path']); ?>"
-                            alt="Question Image">
-                        <br><br>
-                        <a href="<?= htmlspecialchars($question['file_path']); ?>" download>
-                            <button style="padding: 10px 20px; font-size: 16px;">Download Image</button>
-                        </a>
-                        <?php else: ?>
-                        <p>No image available for this question.</p>
-                        <?php endif; ?>
-                    </div>
+                    <?php if (!empty($question['file_path'])): ?>
+    <?php 
+        $filePath = htmlspecialchars($question['file_path']);
+        $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+    ?>
+
+    <?php if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif'])): ?>
+        <img style="width:500px; height:500px;" src="<?= $filePath ?>" alt="Question Image">
+        <br><br>
+    <?php elseif ($ext === 'pdf'): ?>
+        <iframe src="<?= $filePath ?>" width="400" height="500"></iframe>
+        <br><br>
+    <?php elseif (in_array($ext, ['doc', 'docx'])): ?>
+        <p>Document: <a href="<?= $filePath ?>" target="_blank"><?= basename($filePath) ?></a></p>
+        <br>
+    <?php else: ?>
+        <p>Preview not available.</p>
+    <?php endif; ?>
+
+    <a href="<?= $filePath ?>" download>
+        <button style="padding: 10px 20px; font-size: 16px;">Download File</button>
+    </a>
+<?php else: ?>
+    <p>No file available for this question.</p>
+<?php endif; ?>
+   </div>
+
 
                     <div class="col-2">
                         <?php if ($course): ?>

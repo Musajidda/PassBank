@@ -70,7 +70,7 @@ require "inc/header.php";
             <div class="col">
                 <div class="border p-3 my-3">
                     <h4 class="list-group-item" style="color:darkgreen;">
-                        <i class="fas fa-grip-vertical"></i> COURSES
+                        <i class="fas fa-grip-vertical"></i> DEPARTMENT
                     </h4>
                     <ul class="list-group">
                         <?php

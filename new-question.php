@@ -78,8 +78,8 @@ if($_SESSION["user"]["role"] == "user"){
                 </select>
             </div>
                      <div class="form-group">
-                         <label for="">Select Question Paper</label>
-                         <input type="file" name="file" id="" class="form-control" required>
+                         <label for="questionPaper">Select Question Paper</label>
+                         <input type="file" name="file" class="form-control" required>
                      </div>
                      <div class="form-group">
                          <label for="">Course Title</label>

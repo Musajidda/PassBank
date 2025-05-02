@@ -106,7 +106,7 @@ if(isset($_GET["edit_question_id"]) && !empty($_GET["edit_question_id"])){
                          </div>
                         <div class="col-6">
                                 <div class="form-group">
-                                    <label for="">Course</label>
+                                    <label for="">Department</label>
                                     <select name="course_id" class="form-control" id="">
                                        <?php
                                          $sql = "SELECT * FROM courses ORDER BY id DESC";
