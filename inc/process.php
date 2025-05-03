@@ -7,58 +7,10 @@ if (isset($_POST["register"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    // Input Validation/Sanitization
-    $name = sanitizeInput($name);
-    $email = sanitizeInput($email);
-
-    // Check if user exists
-    if (userExists($email)) {
-        $error = "User already exists";
-    } else {
-        // Hash the password
-        $encrypt_password = md5($password);
-
-        // Insert into DB
-        if (insertUser($name, $email, $encrypt_password)) {
-            $success = "Registration successful";
-        } else {
-            $error = "Registration failed";
-        }
-    }
+   
 }
 
-// Function to sanitize input to prevent SQL injection and XSS
-function sanitizeInput($input) {
-    // Implement your input sanitization logic here
-    // For example, use mysqli_real_escape_string() for SQL injection prevention
-    // Use htmlspecialchars() for XSS prevention
-    return $input;
-}
 
-// Function to check if a user exists in the database
-function userExists($email) {
-    global $connection;
-
-    $email = mysqli_real_escape_string($connection, $email);
-    $sql_check = "SELECT * FROM users WHERE email = '$email'";
-    $query_check = mysqli_query($connection, $sql_check);
-
-    return mysqli_fetch_assoc($query_check);
-}
-
-// Function to insert a new user into the database
-function insertUser($name, $email, $password) {
-    global $connection;
-
-    $name = mysqli_real_escape_string($connection, $name);
-    $email = mysqli_real_escape_string($connection, $email);
-    $password = mysqli_real_escape_string($connection, $password);
-
-    $sql = "INSERT INTO users(name,email,password) VALUES('$name','$email','$password')";
-    $query = mysqli_query($connection, $sql);
-
-    return $query;
-}
 
 
 if(isset($_POST["register"])){
